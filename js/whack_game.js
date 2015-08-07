@@ -3,13 +3,13 @@
 	var size = window.innerWidth;
 	var v_partition;
 	var img_folder;
-	var canvas = document.getElementById('myCanvas');
+	var canvas = document.getElementById('canvas');
 	if(replace_cursor)canvas.style.cursor = "none";
 	screen.orientation.lock('landscape');
 	var startTime = (new Date()).getTime();
 	var lastTime= startTime;
 	var mouse={down:0,x:0,y:0};
-	
+
 // set up canvas
     var context = canvas.getContext('2d');
 	if (size>800)
@@ -21,18 +21,18 @@
 	// add linear gradient
     var grd = context.createLinearGradient(0, 0, canvas.width, canvas.height);
     // light blue
-    grd.addColorStop(0, '#8ED6FF');   
+    grd.addColorStop(0, '#8ED6FF');
     // dark blue
     grd.addColorStop(1, '#004CB3');
 	context.fillStyle = grd;
-    context.fill();	
+    context.fill();
 
 // set up event listeners
 	document.body.onmousedown = function() {++mouse.down;}
 	document.body.onmouseup = function() {--mouse.down;}
 	canvas.addEventListener("mousedown", doMouseDown, false);
 	canvas.addEventListener('mousemove', function(evt) {mousePos = getMousePos(canvas, evt);}, false);
-	
+
 	//window.onresize = function(event) {
     //if(window.innerWidth<canvas.width && canvas.width=800){canvas.width=400;canvas.height=300;}
 	//if(window.innerWidth>800 && canvas.width=400){canvas.width=800;canvas.height=600;}
@@ -42,12 +42,12 @@
 // declare resources
 	var img_sqr= new Image();
 	var img_sqg= new Image();
-	  
+
 	var img_mallet0= new Image();
 	var img_mallet1= new Image();
-	
+
 	LoadResources();
-	
+
 	function LoadResources()
 	{
 		img_sqr.src=img_folder+"/squirrel_red.png";
@@ -55,9 +55,9 @@
 		img_mallet0.src="mallet0.png";
 		img_mallet1.src="mallet1.png";
 	}
-	  
+
 	var tree= new Tree([0,v_partition,v_partition*2,v_partition*3]);
-	  
+
 	function doMouseDown()
 	{
 		if(game_state="playing")
@@ -66,8 +66,8 @@
 			{
 				if (
 				tree.row[i].npc.hit==false &&
-				tree.row[i].npc.offsetX<mouse.x && 
-				tree.row[i].npc.offsetX+tree.row[i].npc.img.width>mouse.x && 
+				tree.row[i].npc.offsetX<mouse.x &&
+				tree.row[i].npc.offsetX+tree.row[i].npc.img.width>mouse.x &&
 				tree.row[i].npc.offsetY<mouse.y &&
 				tree.row[i].level<mouse.y
 				){
@@ -84,13 +84,13 @@
 		else
 		{if(game_state="intro") game_state="playing";}
 	}
-	  
+
 	function getMousePos(canvas, evt) {
         var rect = canvas.getBoundingClientRect();
         mouse.x= evt.clientX - rect.left;
         mouse.y= evt.clientY - rect.top;
     }
-	  
+
 	function Row(level){
 		this.level=level;
 		this.image=new Image();
@@ -116,7 +116,7 @@
 			}
 		}
 	}
- 
+
 	function Tree(levels) {
 		this.img=[];
 		this.level=[];
@@ -158,14 +158,14 @@
 			{context.drawImage(tree.row[i].npc.img, tree.row[i].npc.offsetX, Math.floor(tree.level[i+1]-tree.row[i].npc.offsetY));}
 		}
 	}
-	
+
 	function animate() {
 		console.log(player.score);
 		requestAnimationFrame(animate);
         // update
 		var dtime = (new Date()).getTime() - lastTime;
 		lastTime=(new Date()).getTime();
-		
+
 		switch(game_state) {
 			case "intro":
 				//draw
@@ -200,7 +200,7 @@
 			break;
 		}
 	}
-    
+
 	window.onload=setTimeout(function() {
         animate();
       }, 100);
