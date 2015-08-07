@@ -1,7 +1,7 @@
 <?php
   $dscore = trim($_POST["dscore"]);
-  
-  if (isset($dscore) && $dscore != false && is_int($dscore)) 
+
+  if (isset($dscore) && $dscore != false && is_int($dscore))
   {
     try {
       include $_SERVER['DOCUMENT_ROOT']."/connections/remote.php";
@@ -13,8 +13,9 @@
       $stmt->bindParam(':ds', $dscore, PDO::PARAM_INT);
       $stmt->execute();
       $stmt->closeCursor();
-      } catch (PDOException $pe) {
-    die("Error occurred:" . $pe->getMessage());
+    } catch (PDOException $pe) {
+      die("Error occurred:" . $pe->getMessage());
+    }
   }
 ?>
 
