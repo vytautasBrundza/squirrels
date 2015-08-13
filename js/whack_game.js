@@ -160,7 +160,6 @@
 	}
 
 	function animate(){
-		console.log(player.score);
 		requestAnimationFrame(animate);
         // update
 		var dtime = (new Date()).getTime() - lastTime;
